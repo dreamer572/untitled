@@ -34,6 +34,43 @@ public class Main {
         if (st.equals("X")) return 10;
         return -1;
     }
+    public static String arabicToRoman(final int number) {
+        if (number < 0 || 4000 <= number) {
+            throw new IllegalArgumentException();
+        }
+        String[] nums = { "I", "V", "X", "L", "C", "D", "M" };
+        int numCounter = 0;
+        String result = "";
+        StringBuilder partResult = new StringBuilder();
+        int numeral;
+        String stringNumber = String.valueOf(number);
+        for (int i = stringNumber.length() - 1; i >= 0; i--) {
+            partResult.delete(0, partResult.length());
+            numeral = Integer.parseInt(stringNumber.substring(i, i + 1));
+            if (1 <= numeral && numeral < 4) {
+                for (int j = 0; j < numeral; j++) {
+                    partResult.append(nums[numCounter]);
+                }
+                numCounter += 2;
+            } else if (4 <= numeral && numeral < 9) {
+                numCounter += 2;
+                if (numeral == 4) {
+                    partResult.append(nums[numCounter - 2]);
+                }
+                partResult.append(nums[numCounter - 1]);
+                for (int j = 0; j < (numeral - 5); j++) {
+                    partResult.append(nums[numCounter - 2]);
+                }
+            } else if (numeral == 9) {
+                numCounter += 2;
+                partResult.append(nums[numCounter - 2] + nums[numCounter]);
+            } else if (numeral == 0) {
+                numCounter += 2;
+            }
+            result = partResult.append(result).toString();
+        }
+        return result;
+    }
     public static String calc(String input) throws Exception {
         String er = "throws Exception //";
         //если больше двух пробелов ошибка
@@ -51,7 +88,7 @@ public class Main {
             throw new Exception(er+"т.к. строка не является математической операцией");
         if (amountOps != 1 | amountSpaces != 2)
             throw new Exception(er+"т.к. формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
-        if (input.indexOf('.') != 0 | input.indexOf(',') != 0)
+        if (input.indexOf('.') > 0 | input.indexOf(',') > 0)
             throw new Exception(er+"т.к нельзя использовать дробные числа");
         String st1 = input.substring(0,input.indexOf(' ')), st2 = input.substring(input.lastIndexOf(' '), input.length()-1);
         char op = input.charAt(input.indexOf(' ')+1);
@@ -68,14 +105,26 @@ public class Main {
             n[0] = Integer.parseInt(st1);
             n[1] = Integer.parseInt(st2);
         }
-        //if (n1 > 10)
-    /*
-        обработаем эти исключения здесь
-
-
-        чтобы числа были от 1 до 10
-
-         */
-        return input;
+        for (int nn : n)
+            if (nn > 10 | nn < 1)
+                throw new Exception(er+"числа должны быть от 1 до 10 включительно");
+        int res = 0;
+        if (op == '+')
+            res = n[0] + n[1];
+        else if (op == '-')
+            res = n[0] - n[1];
+        else if (op == '*')
+            res = n[0] * n[1];
+        else if (op == '/') {
+            if (n[1] == 0)
+                throw new Exception(er+"нельзя делить на ноль");
+            res = n[0] / n[1];
+        }
+        if (isRoman(st1)) {
+            if (res < 1)
+                throw new Exception(er + "т.к. в римской системе нет отрицательных чисел");
+            return arabicToRoman(res);
+        }
+        return String.valueOf(res);
     }
 }
