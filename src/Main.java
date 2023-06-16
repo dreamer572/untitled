@@ -18,7 +18,7 @@ public class Main {
         return true;
     }
     public static boolean isRoman(String n) {
-        return n.indexOf('I') > 0 | n.indexOf('V') > 0 | n.indexOf('X') > 0;
+        return n.indexOf('I') != -1 | n.indexOf('V') != -1 | n.indexOf('X') != -1;
     }
 
     public static int toArabic(String st) {//если число больше 10 метод выдаёт -1
@@ -100,7 +100,7 @@ public class Main {
             n[1] = toArabic(st2);
         }
         else if (isAlpha(st1) | isAlpha(st2))
-            throw new Exception(er+"т.к в математической операции не должно быть букв");
+            throw new Exception(er+"т.к букв не должно быть");
         else {
             n[0] = Integer.parseInt(st1);
             n[1] = Integer.parseInt(st2);
@@ -115,11 +115,9 @@ public class Main {
             res = n[0] - n[1];
         else if (op == '*')
             res = n[0] * n[1];
-        else if (op == '/') {
-            if (n[1] == 0)
-                throw new Exception(er+"нельзя делить на ноль");
-            res = n[0] / n[1];
-        }
+        else if (op == '/')
+            res = (int)((double)n[0] / (double)n[1]);
+
         if (isRoman(st1)) {
             if (res < 1)
                 throw new Exception(er + "т.к. в римской системе нет отрицательных чисел");
