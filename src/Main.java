@@ -1,11 +1,5 @@
 import java.util.Scanner;
 public class Main {
-    public static void main(String[] args) throws Exception {
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        String output = calc(input);
-        System.out.println(output);
-    }
     public static boolean isAlpha(String s) {
         if (s == null)
             return false;
@@ -96,7 +90,7 @@ public class Main {
             throw new Exception(er+"используются одновременно разные системы счисления");
         int[] n = new int[2];
         if (isRoman(st1) & isRoman(st2)) {
-            n[0] = toArabic(st2);
+            n[0] = toArabic(st1);
             n[1] = toArabic(st2);
         }
         else if (isAlpha(st1) | isAlpha(st2))
@@ -116,13 +110,19 @@ public class Main {
         else if (op == '*')
             res = n[0] * n[1];
         else if (op == '/')
-            res = (int)((double)n[0] / (double)n[1]);
-
+            res = n[0] / n[1];
         if (isRoman(st1)) {
             if (res < 1)
                 throw new Exception(er + "т.к. в римской системе нет отрицательных чисел");
             return arabicToRoman(res);
         }
         return String.valueOf(res);
+    }
+    public static void main(String[] args) throws Exception {
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        String output = calc(input);
+        System.out.println(output);
+        in.close();
     }
 }
