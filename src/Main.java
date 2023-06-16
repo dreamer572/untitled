@@ -14,7 +14,6 @@ public class Main {
     public static boolean isRoman(String n) {
         return n.indexOf('I') != -1 | n.indexOf('V') != -1 | n.indexOf('X') != -1;
     }
-
     public static int toArabic(String st) {//если число больше 10 метод выдаёт -1
         if (st.equals("I")) return 1;
         if (st.equals("II")) return 2;
