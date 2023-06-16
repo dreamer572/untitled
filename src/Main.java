@@ -28,9 +28,8 @@ public class Main {
         return -1;
     }
     public static String arabicToRoman(final int number) {
-        if (number < 0 || 4000 <= number) {
+        if (number < 0 || 4000 <= number)
             throw new IllegalArgumentException();
-        }
         String[] nums = { "I", "V", "X", "L", "C", "D", "M" };
         int numCounter = 0;
         String result = "";
@@ -41,25 +40,21 @@ public class Main {
             partResult.delete(0, partResult.length());
             numeral = Integer.parseInt(stringNumber.substring(i, i + 1));
             if (1 <= numeral && numeral < 4) {
-                for (int j = 0; j < numeral; j++) {
+                for (int j = 0; j < numeral; j++)
                     partResult.append(nums[numCounter]);
-                }
                 numCounter += 2;
             } else if (4 <= numeral && numeral < 9) {
                 numCounter += 2;
-                if (numeral == 4) {
+                if (numeral == 4)
                     partResult.append(nums[numCounter - 2]);
-                }
                 partResult.append(nums[numCounter - 1]);
-                for (int j = 0; j < (numeral - 5); j++) {
+                for (int j = 0; j < (numeral - 5); j++)
                     partResult.append(nums[numCounter - 2]);
-                }
             } else if (numeral == 9) {
                 numCounter += 2;
                 partResult.append(nums[numCounter - 2] + nums[numCounter]);
-            } else if (numeral == 0) {
+            } else if (numeral == 0)
                 numCounter += 2;
-            }
             result = partResult.append(result).toString();
         }
         return result;
