@@ -90,7 +90,7 @@ public class Main {
             throw new Exception(er+"т.к. формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
         if (input.indexOf('.') > 0 | input.indexOf(',') > 0)
             throw new Exception(er+"т.к нельзя использовать дробные числа");
-        String st1 = input.substring(0,input.indexOf(' ')), st2 = input.substring(input.lastIndexOf(' '), input.length()-1);
+        String st1 = input.substring(0,input.indexOf(' ')), st2 = input.substring(input.lastIndexOf(' ')+1, input.length());
         char op = input.charAt(input.indexOf(' ')+1);
         if (isRoman(st1) ^ isRoman(st2))
             throw new Exception(er+"используются одновременно разные системы счисления");
