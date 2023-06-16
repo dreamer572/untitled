@@ -61,8 +61,6 @@ public class Main {
     }
     public static String calc(String input) throws Exception {
         String er = "throws Exception //";
-        //если больше двух пробелов ошибка
-        //если больше двух операндов ошибка
         char[] ops = {'+','-','*','/'};
         int amountOps = 0, amountSpaces = 0;
         for (int i = 0; i < input.length(); i++)
